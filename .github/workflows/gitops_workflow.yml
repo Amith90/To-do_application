@@ -39,7 +39,7 @@ jobs:
         run: |
           TAG=$((GITHUB_RUN_NUMBER - 1))
           echo "TAG: $TAG"
-          git clone https://github.com/Amith90/kube_manifest.git
+          git clone https://$GH_TOKEN@github.com/Amith90/kube_manifest.git
           cd kube_manifest
           sed -i "s/build-.*/build-$TAG/g" manifest/deployment.yaml
           git config --global user.email "amithkarunaratne@gmail.com"
@@ -47,3 +47,4 @@ jobs:
           git add .
           git commit -m "new build with imgTag build-$TAG"
           git push -q origin main
+      
