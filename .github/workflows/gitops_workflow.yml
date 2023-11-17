@@ -1,0 +1,59 @@
+name: GitOpsflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker
+        uses: docker/setup-docker@v2
+
+      - name: Login to Docker Hub
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+      - name: Build and push Docker image
+        run: |
+          version="build-${{ github.run_number }}"
+          echo $version
+          docker build -t amith90/todo-app:$version .
+          docker push amith90/todo-app:$version
+
+  Update_menifest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker
+        uses: docker/setup-docker@v2
+
+      - name: Update Manifest file
+        run: |
+          TAG=$((github.run_number - 1))
+          git clone https://github.com/Amith90/kube_manifest.git
+          cd kube_manifest-4thWeekOfCloudOps
+          sed -i "s/build-.*/build-$TAG/g" menifest/deployment.yaml
+          git config --global user.email "amithkarunaratne@gmail.com"
+          git config --global user.name "Amith90"
+          git add .
+          git commit -m "new build with imgTag build-$TAG"
+          git config credential.helper 'cache --timeout=120'
+          git push -q https://github.com/Amith90/kube_manifest.git main
+
+workflows:
+  version: 2
+  GitOpsflow:
+    jobs:
+      - build_and_push
+      - Update_menifest:
+          requires:
+            - build_and_push
