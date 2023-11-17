@@ -42,13 +42,15 @@ jobs:
       
       - name: Perform operations on the repository
         run: |
-            TAG=$((GITHUB_RUN_NUMBER - 1))
-            echo "TAG: $TAG"
-            mkdir kube_manifest  # Create the directory if it doesn't exist
-            cd kube_manifest
-            sed -i "s/build-.*/build-$TAG/g" manifest/deployment.yaml  # Fix the path here
-            git config --global user.email "amithkarunaratne@gmail.com"
-            git config --global user.name "Amith90"
-            git add .
-            git commit -m "new build with imgTag build-$TAG"
-            git push -q origin main
+          TAG=$((GITHUB_RUN_NUMBER - 1))
+          echo "TAG: $TAG"
+          cd kube_manifest
+          pwd  # Print the current working directory for debugging
+          ls -R  # List the contents of the directory for debugging purposes
+          sed -i "s/build-.*/build-$TAG/g" manifest/deployment.yaml
+          git config --global user.email "amithkarunaratne@gmail.com"
+          git config --global user.name "Amith90"
+          git add .
+          git commit -m "new build with imgTag build-$TAG"
+          git push -q origin main
+      
