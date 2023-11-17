@@ -50,8 +50,6 @@ jobs:
           pwd  # Print the current working directory for debugging
           ls -R  # List the contents of the directory for debugging purposes
           sed -i "s/build-.*/build-$TAG/g" manifest/deployment.yaml  # Use the correct path to deployment.yaml
-          git branch
-          git checkout main
           git config --global user.email "amithkarunaratne@gmail.com"
           git config --global user.name "Amith90"
           git add .
