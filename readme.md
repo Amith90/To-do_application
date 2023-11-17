@@ -49,6 +49,3 @@ If you want to learn how i created this project, please go through my blogs. I'v
 
 [![Install ArgoCD on the EKS cluster and configure sync with GitHub manifest repository](https://project-assets.showwcase.com/110249/1688982849073-argocd_sync.gif)](https://www.showwcase.com/show/35858/install-argocd-on-the-eks-cluster-and-configure-sync-with-github-manifest-repository)
 
-
-zzz
-
