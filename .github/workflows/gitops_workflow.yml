@@ -35,20 +35,21 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Update Manifest file
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        
         with:
           repository: Amith90/kube_manifest
-          ref: main
+          ref: acfeaa36638afd51202db3ce4c9bab8fd9b02a5f  # specify the commit hash or branch/tag
+          path: kube_manifest  # Specify the directory for checkout
       
       - name: Perform operations on the repository
         run: |
           TAG=$((GITHUB_RUN_NUMBER - 1))
           echo "TAG: $TAG"
-          mkdir kube_manifest
           cd kube_manifest
           pwd  # Print the current working directory for debugging
           ls -R  # List the contents of the directory for debugging purposes
-          sed -i "s/build-.*/build-$TAG/g" manifest/deployment.yaml
+          sed -i "s/build-.*/build-$TAG/g" manifest/deployment.yaml  # Use the correct path to deployment.yaml
           git config --global user.email "amithkarunaratne@gmail.com"
           git config --global user.name "Amith90"
           git add .
