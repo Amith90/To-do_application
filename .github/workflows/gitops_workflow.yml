@@ -35,10 +35,15 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Update Manifest file
+        uses: actions/checkout@v2
+        with:
+          repository: Amith90/kube_manifest
+          ref: main
+      
+      - name: Perform operations on the repository
         run: |
           TAG=$((GITHUB_RUN_NUMBER - 1))
           echo "TAG: $TAG"
-          git clone https://github.com/Amith90/kube_manifest.git
           cd kube_manifest
           sed -i "s/build-.*/build-$TAG/g" menifest/deployment.yaml
           git config --global user.email "amithkarunaratne@gmail.com"
