@@ -38,7 +38,7 @@ jobs:
         run: |
           TAG=$((GITHUB_RUN_NUMBER - 1))
           echo "TAG: $TAG"
-          git git clone https://Amith90@github.com/Amith90/kube_manifest.git
+          git clone https://Amith90@github.com/Amith90/kube_manifest.git
           cd kube_manifest
           sed -i "s/build-.*/build-$TAG/g" menifest/deployment.yaml
           git config --global user.email "amithkarunaratne@gmail.com"
