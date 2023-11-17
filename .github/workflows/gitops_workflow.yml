@@ -38,9 +38,9 @@ jobs:
 
       - name: Update Manifest file
         run: |
-          TAG=$((github.run_number - 1))
+          TAG=$((GITHUB_RUN_NUMBER - 1))
           git clone https://github.com/Amith90/kube_manifest.git
-          cd kube_manifest-4thWeekOfCloudOps
+          cd kube_manifest
           sed -i "s/build-.*/build-$TAG/g" menifest/deployment.yaml
           git config --global user.email "amithkarunaratne@gmail.com"
           git config --global user.name "Amith90"
