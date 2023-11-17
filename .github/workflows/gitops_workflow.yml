@@ -44,6 +44,7 @@ jobs:
         run: |
           TAG=$((GITHUB_RUN_NUMBER - 1))
           echo "TAG: $TAG"
+          mkdir kube_manifest
           cd kube_manifest
           sed -i "s/build-.*/build-$TAG/g" menifest/deployment.yaml
           git config --global user.email "amithkarunaratne@gmail.com"
